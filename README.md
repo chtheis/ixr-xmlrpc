@@ -30,9 +30,44 @@ Features
 
 Composer Install
 ================
+1. Download the [`composer.phar`](https://getcomposer.org/composer.phar) executable or use the installer.
 
-Manual Install
-==============
+    ``` sh
+    $ curl -sS https://getcomposer.org/installer | php
+    $ cp composer.phar /usr/local/bin/composer
+    $ chmod +x /usr/local/bin/composer
+    ```
+
+2. Add the following to your composer.json file:
+
+```
+        "greenfieldtech-nirs/ixr-xmlrpc": "dev-master"
+```
+
+So now, your composer.json should resemble the following:
+
+```
+{
+    .
+    .
+    .
+    "require":{
+        "php":">=5.1.0",
+        .
+        .
+        .
+        "greenfieldtech-nirs/ixr-xmlrpc": "dev-master"
+    },
+    .
+    .
+}
+```
+
+3. Now, add the autoload to your PHP scripts and you are ready to go
+
+```
+require 'vendor/autoload.php';
+```
 
 Credits
 =======
