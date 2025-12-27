@@ -176,9 +176,8 @@ class IXR_Message {
         // Set XML parser to take the case of tags in to account
         xml_parser_set_option($this->_parser, XML_OPTION_CASE_FOLDING, false);
         // Set XML parser callback functions
-        xml_set_object($this->_parser, $this);
-        xml_set_element_handler($this->_parser, 'tag_open', 'tag_close');
-        xml_set_character_data_handler($this->_parser, 'cdata');
+        xml_set_element_handler($this->_parser, [$this, 'tag_open'], [$this, 'tag_close']);
+        xml_set_character_data_handler($this->_parser, [$this, 'cdata']);
         if (!xml_parse($this->_parser, $this->message)) {
             /* die(sprintf('XML error: %s at line %d',
                 xml_error_string(xml_get_error_code($this->_parser)),
@@ -195,7 +194,7 @@ class IXR_Message {
     }
     function tag_open($parser, $tag, $attr) {
         $this->_currentTagContents = '';
-        $this->currentTag = $tag;
+        $this->_currentTag = $tag;
         switch($tag) {
             case 'methodCall':
             case 'methodResponse':
